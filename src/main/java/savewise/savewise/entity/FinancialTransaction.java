@@ -20,8 +20,8 @@ import lombok.Setter;
 @Table(name = "transactions")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class FinancialTransaction {
 
     @Id
@@ -44,7 +44,6 @@ public class FinancialTransaction {
     private Category category;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
-    // getters y setters
 }

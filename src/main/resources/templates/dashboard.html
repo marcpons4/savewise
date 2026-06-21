@@ -16,8 +16,25 @@
     <h2>Balance</h2>
     <p th:text="${balance}"></p>
 
+    <h2>Statistics</h2>
+
+    <p>
+        Categories:
+        <span th:text="${totalCategories}"></span>
+    </p>
+
+    <p>
+        Transactions:
+        <span th:text="${totalTransactions}"></span>
+    </p>
+
+
     <a href="/categories">
-    Manage Categories
+        Manage Categories
+    </a>
+    
+    <a href="/transactions">
+        Manage Transactions
     </a>
 
 </body>
