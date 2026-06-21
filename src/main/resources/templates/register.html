@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+</head>
+<body>
+
+<h1>Create account</h1>
+
+<form th:action="@{/register}"
+      th:object="${registerDto}"
+      method="post">
+
+    <input
+        type="text"
+        th:field="*{username}"
+        placeholder="Username">
+
+    <input
+        type="email"
+        th:field="*{email}"
+        placeholder="Email">
+
+    <input
+        type="password"
+        th:field="*{password}"
+        placeholder="Password">
+
+    <button type="submit">
+        Register
+    </button>
+
+</form>
+
+</body>
+</html>
