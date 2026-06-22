@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  safewise-db:
+    image: mysql:8.0
+    container_name: savewise-db
+    environment:
+      MYSQL_DATABASE: savewise_db
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - savewise-network
+
+  savewise-app:
+    build: .
+    container_name: savewise-app
+    ports:
+      - "80:8080" # Mapea el puerto 80 (HTTP estándar) al 8080 de Spring Boot
+    environment:
+      DB_USERNAME: root
+      DB_PASSWORD: secret
+    depends_on:
+      - savewise-db
+    networks:
+      - savewise-network
+
+volumes:
+  mysql_data:
+
+networks:
+  savewise-network:
