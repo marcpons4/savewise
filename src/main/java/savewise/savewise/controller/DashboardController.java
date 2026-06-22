@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import savewise.savewise.entity.FinancialTransaction;
+import savewise.savewise.entity.TransactionType;
 import savewise.savewise.entity.User;
 import savewise.savewise.repository.CategoryRepository;
 import savewise.savewise.repository.FinancialTransactionRepository;
@@ -28,14 +30,32 @@ public class DashboardController {
         this.transactionRepository = transactionRepository;
     }
 
-    @GetMapping("/dashboard")
-    public String dashboard(
-            Model model,
-            Principal principal) {
+        @GetMapping("/dashboard")
+        public String dashboard(
+                Model model,
+                Principal principal) {
 
         User user = userRepository
                 .findByUsername(principal.getName())
                 .orElseThrow();
+
+        var transactions = transactionRepository.findByUser(user);
+
+        double income = transactions.stream()
+                .filter(t -> t.getType() == TransactionType.INCOME)
+                .mapToDouble(FinancialTransaction::getAmount)
+                .sum();
+
+        double expenses = transactions.stream()
+                .filter(t -> t.getType() == TransactionType.EXPENSE)
+                .mapToDouble(FinancialTransaction::getAmount)
+                .sum();
+
+        double balance = income - expenses;
+
+        model.addAttribute("income", income);
+        model.addAttribute("expenses", expenses);
+        model.addAttribute("balance", balance);
 
         model.addAttribute(
                 "totalCategories",
@@ -43,8 +63,8 @@ public class DashboardController {
 
         model.addAttribute(
                 "totalTransactions",
-                transactionRepository.findByUser(user).size());
+                transactions.size());
 
         return "dashboard";
-    }
+        }
 }

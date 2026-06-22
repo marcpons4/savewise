@@ -1,35 +1,118 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>New Category</title>
+    <title>New Category - SaveWise</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+        <link rel="icon"
+          th:href="@{/images/favicon.ico}"
+          type="image/x-icon">
+
+    <style>
+        body{
+            background-color:#F5F9F7;
+        }
+
+        .navbar-savewise{
+            background:#0F172A;
+        }
+
+        .logo{
+            height:60px;
+        }
+
+        .btn-savewise{
+            background:#34D399;
+            border:none;
+            color:white;
+        }
+
+        .btn-savewise:hover{
+            background:#10B981;
+            color:white;
+        }
+    </style>
 </head>
+
 <body>
 
-<h1>New Category</h1>
+<nav class="navbar navbar-savewise">
+    <div class="container">
+        <img src="/images/logo.png" alt="SaveWise Logo" style="height:120px;">
+    </div>
+</nav>
 
-<form th:action="@{/categories/save}"
-      th:object="${category}"
-      method="post">
+<div class="container mt-5">
 
-    <input
-        type="text"
-        th:field="*{name}"
-        placeholder="Name">
+    <div class="row justify-content-center">
 
-    <br><br>
+        <div class="col-md-6">
 
-    <input
-        type="text"
-        th:field="*{description}"
-        placeholder="Description">
+            <div class="card shadow">
 
-    <br><br>
+                <div class="card-body">
 
-    <button type="submit">
-        Save
-    </button>
+                    <h2 class="text-center mb-4">
+                        New Category
+                    </h2>
 
-</form>
+                    <form th:action="@{/categories/save}"
+                          th:object="${category}"
+                          method="post">
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Name
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{name}">
+
+                            <div class="text-danger"
+                                 th:if="${#fields.hasErrors('name')}"
+                                 th:errors="*{name}">
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Description
+                            </label>
+
+                            <textarea class="form-control"
+                                      rows="3"
+                                      th:field="*{description}">
+                            </textarea>
+
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-savewise">
+                            Save Category
+                        </button>
+
+                        <a href="/categories"
+                           class="btn btn-secondary">
+                            Cancel
+                        </a>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>

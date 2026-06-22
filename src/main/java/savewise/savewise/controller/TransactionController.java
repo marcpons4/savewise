@@ -4,12 +4,14 @@ import java.security.Principal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import savewise.savewise.entity.FinancialTransaction;
 import savewise.savewise.entity.TransactionType;
 import savewise.savewise.entity.User;
@@ -52,9 +54,9 @@ public class TransactionController {
     }
 
     @GetMapping("/new")
-        public String newTransaction(
-                Model model,
-                Principal principal) {
+    public String newTransaction(
+            Model model,
+            Principal principal) {
 
         User user = userRepository
                 .findByUsername(principal.getName())
@@ -63,7 +65,7 @@ public class TransactionController {
         var categories = categoryRepository.findByUser(user);
 
         if (categories.isEmpty()) {
-                return "redirect:/categories/new";
+            return "redirect:/categories/new";
         }
 
         model.addAttribute(
@@ -79,17 +81,32 @@ public class TransactionController {
                 TransactionType.values());
 
         return "transactions/form";
-        }
+    }
 
-    // PUNTO 7
     @PostMapping("/save")
     public String saveTransaction(
-            @ModelAttribute FinancialTransaction transaction,
-            Principal principal) {
+            @Valid @ModelAttribute("transaction")
+            FinancialTransaction transaction,
+            BindingResult result,
+            Principal principal,
+            Model model) {
 
         User user = userRepository
                 .findByUsername(principal.getName())
                 .orElseThrow();
+
+        if(result.hasErrors()) {
+
+            model.addAttribute(
+                    "categories",
+                    categoryRepository.findByUser(user));
+
+            model.addAttribute(
+                    "types",
+                    TransactionType.values());
+
+            return "transactions/form";
+        }
 
         transaction.setUser(user);
 
@@ -98,7 +115,6 @@ public class TransactionController {
         return "redirect:/transactions";
     }
 
-    // PUNTO 8
     @GetMapping("/delete/{id}")
     public String deleteTransaction(
             @PathVariable Long id) {

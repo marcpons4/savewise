@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<nav th:fragment="navbar"
+     class="navbar navbar-expand-lg navbar-savewise">
+
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center"
+           href="/dashboard">
+
+            <img src="/images/logo.png" alt="SaveWise Logo" style="height:120px;">
+
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbar">
+
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse"
+             id="navbar">
+
+            <ul class="navbar-nav me-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/categories">
+                        Categories
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/transactions">
+                        Transactions
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/goals">
+                        Goals
+                    </a>
+                </li>
+
+            </ul>
+
+            <form th:action="@{/logout}" method="post">
+                <button class="btn btn-outline-danger">
+                    Logout
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+</nav>
+
+</body>
+</html>

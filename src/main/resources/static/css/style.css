@@ -1,0 +1,92 @@
+:root{
+    --sw-primary:#63BE86;
+    --sw-primary-dark:#4FA973;
+
+    --sw-secondary:#6C8086;
+    --sw-secondary-dark:#475A60;
+
+    --sw-bg:#F5F7F8;
+    --sw-card:#FFFFFF;
+    --sw-text:#475A60;
+}
+
+body{
+    background-color:var(--sw-bg);
+    color:var(--sw-text);
+}
+
+.navbar-savewise{
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+.logo{
+    height:100px;
+}
+
+.dashboard-card{
+    border:none;
+    border-radius:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+    transition:.2s;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-3px);
+}
+
+.stat-value{
+    font-size:2rem;
+    font-weight:700;
+}
+
+.btn-savewise{
+    background:var(--sw-primary);
+    color:white;
+    border:none;
+}
+
+.btn-savewise:hover{
+    background:var(--sw-primary-dark);
+    color:white;
+}
+
+.card-income{
+    border-left:6px solid var(--sw-primary);
+}
+
+.card-expenses{
+    border-left:6px solid #dc3545;
+}
+
+.card-balance{
+    border-left:6px solid var(--sw-secondary);
+}
+
+.quick-actions .btn{
+    min-width:170px;
+}
+
+.form-control{
+    border-radius:12px;
+    padding:12px;
+}
+
+.form-control:focus{
+    border-color:var(--sw-primary);
+    box-shadow:0 0 0 .25rem rgba(99,190,134,.25);
+}
+
+.card{
+    border-radius:16px;
+}
+
+.table thead th{
+    border-bottom:2px solid #e9ecef;
+    color:var(--sw-secondary);
+    font-weight:600;
+}
+
+.table-hover tbody tr:hover{
+    background-color:rgba(99,190,134,.05);
+}
