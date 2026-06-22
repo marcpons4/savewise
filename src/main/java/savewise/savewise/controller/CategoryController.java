@@ -4,12 +4,13 @@ import java.security.Principal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import savewise.savewise.entity.Category;
 import savewise.savewise.entity.User;
 import savewise.savewise.repository.CategoryRepository;
@@ -58,8 +59,13 @@ public class CategoryController {
 
     @PostMapping("/save")
     public String saveCategory(
-            @ModelAttribute Category category,
-            Principal principal) {
+        @Valid Category category,
+        BindingResult result,
+        Principal principal) {
+
+        if(result.hasErrors()) {
+            return "categories/form";
+        }
 
         User user = userRepository
                 .findByUsername(principal.getName())

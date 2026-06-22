@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Goal - SaveWise</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+        <link rel="icon"
+          th:href="@{/images/favicon.ico}"
+          type="image/x-icon">
+
+    <style>
+        body{
+            background-color:#F5F9F7;
+        }
+
+        .navbar-savewise{
+            background:#0F172A;
+        }
+
+        .logo{
+            height:60px;
+        }
+
+        .btn-savewise{
+            background:#34D399;
+            border:none;
+            color:white;
+        }
+
+        .btn-savewise:hover{
+            background:#10B981;
+            color:white;
+        }
+
+        .card-form{
+            border-radius:15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-savewise">
+    <div class="container">
+        <img src="/images/logo.png" alt="SaveWise Logo" style="height:120px;">
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow card-form">
+
+                <div class="card-body">
+
+                    <h2 class="text-center mb-4">
+                        New Savings Goal
+                    </h2>
+
+                    <form th:action="@{/goals/save}"
+                          th:object="${goal}"
+                          method="post">
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Goal Name
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{title}"
+                                   placeholder="Buy a car">
+
+                            <div class="text-danger"
+                                 th:if="${#fields.hasErrors('title')}"
+                                 th:errors="*{title}">
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Target Amount (€)
+                            </label>
+
+                            <input type="number"
+                                   step="0.01"
+                                   class="form-control"
+                                   th:field="*{targetAmount}"
+                                   placeholder="10000">
+
+                            <div class="text-danger"
+                                 th:if="${#fields.hasErrors('targetAmount')}"
+                                 th:errors="*{targetAmount}">
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Target Date
+                            </label>
+
+                            <input type="date"
+                                   class="form-control"
+                                   th:field="*{targetDate}">
+
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-savewise">
+                                Save Goal
+                            </button>
+
+                            <a href="/goals"
+                               class="btn btn-secondary">
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

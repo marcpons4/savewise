@@ -3,8 +3,6 @@ package savewise.savewise.entity;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,12 +18,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "transactions")
+@Table(name = "savings_goals")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FinancialTransaction {
+public class SavingsGoal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,23 +32,13 @@ public class FinancialTransaction {
     @NotBlank(message = "Title is required")
     private String title;
 
-    @NotNull(message = "Amount is required")
-    @Positive(message = "Amount must be greater than 0")
-    private Double amount;
+    @NotNull(message = "Target amount is required")
+    @Positive(message = "Target amount must be greater than 0")
+    private Double targetAmount;
 
-    private String description;
+    private Double currentAmount = 0.0;
 
-    @NotNull(message = "Date is required")
-    private LocalDate date;
-
-    @NotNull(message = "Type is required")
-    @Enumerated(EnumType.STRING)
-    private TransactionType type;
-
-    @NotNull(message = "Category is required")
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    private LocalDate targetDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
